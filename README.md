@@ -1,2 +1,2 @@
 # CSE830
-Repo for CSE 830 course
+Repo for CSE 830 course projects. Work in progress.
