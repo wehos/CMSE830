@@ -2,7 +2,6 @@ import streamlit as st
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 st.set_option('deprecation.showPyplotGlobalUse', False)
 df = pd.read_csv('breast_cancer.csv')
 df['Estrogen Status'] = df['Estrogen Status'].map(lambda x: 1 if x=='Positive' else 0)
