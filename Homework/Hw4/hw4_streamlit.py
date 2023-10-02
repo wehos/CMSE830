@@ -3,7 +3,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 st.set_option('deprecation.showPyplotGlobalUse', False)
-df = pd.read_csv('./Hw4/breast_cancer.csv')
+df = pd.read_csv('./Homework/Hw4/breast_cancer.csv')
 df['Estrogen Status'] = df['Estrogen Status'].map(lambda x: 1 if x=='Positive' else 0)
 df['Progesterone Status'] = df['Progesterone Status'].map(lambda x: 1 if x=='Positive' else 0)
 df['Status'] = df['Status'].map(lambda x: 1 if x=='Alive' else 0)
