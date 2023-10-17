@@ -2,3 +2,7 @@ streamlit
 seaborn
 pandas
 matplotlib
+anndata
+scanpy
+hdf5plugin
+scikit-learn
