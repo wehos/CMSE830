@@ -25,6 +25,7 @@ ENH_FEAT_MERGE_PATH =  f'{PROCESSED_DATA_DIR}/merge_enh_max_1115.h5ad'
 TARGET_PATH = f'{PROCESSED_DATA_DIR}/merge_target_1115.h5ad'
 COMMON_GENE_PATH = f'{PROCESSED_DATA_DIR}/common_genes_1115.npy'
 feature_path_dict = {'svd': SVD_FEAT_MERGE_PATH, 'gam':GAM_FEAT_MERGE_PATH, 'eqtl': EQTL_FEAT_MERGE_PATH, 'enh': ENH_FEAT_MERGE_PATH, 'tgt': TARGET_PATH}
+THRESHOLD = 5
 with open(f'{PROCESSED_DATA_DIR}/mapping.json') as f:
     mapping = json.load(f)
 HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122', 'ENSG00000158805', 'ENSG00000173917', 'ENSG00000177409', 'ENSG00000196187']
@@ -34,7 +35,7 @@ def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
     idx = np.random.permutation(adata.shape[0])
-    return adata[idx[:5000]]
+    return adata[idx[:1000]]
 
 @st.cache_data
 def get_corr_data_feat():
@@ -63,7 +64,7 @@ def get_corr_data_feat_nz():
             src_temp = src[:, j]
             tgt_temp = tgt[:, j]
             src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
-            if src_temp.shape[0]>8:
+            if src_temp.shape[0]>THRESHOLD:
                 correlations.append(pearsonr(src_temp, tgt_temp)[0])
         corr_data_feat_nz[feat] = correlations
     return corr_data_feat_nz
@@ -85,7 +86,7 @@ def get_corr_data():
                     src_temp = src[:, j]
                     tgt_temp = tgt2[:, j]
                     src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
-                    if src_temp.shape[0]>8:
+                    if src_temp.shape[0]>THRESHOLD:
                         corr_data[feat][factor][cat].append(pearsonr(src_temp, tgt_temp)[0])
     return corr_data
 
