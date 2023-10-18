@@ -37,7 +37,7 @@ def load_data(feat):
     return adata[idx[:5000]]
 
 @st.cache_data
-def get_corr_data_feat(feat):
+def get_corr_data_feat():
     corr_data_feat = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         src = load_data(feat).X
@@ -54,7 +54,7 @@ def get_corr_data_feat(feat):
     return corr_data_feat
 
 @st.cache_data
-def get_corr_data_feat_nz(feat):
+def get_corr_data_feat_nz():
     corr_data_feat_nz = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         correlations = []
