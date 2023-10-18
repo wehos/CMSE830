@@ -33,7 +33,7 @@ HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122
 def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
-    return adata
+    return adata[:5000]
 
 @st.cache_data
 def get_corr_data():
@@ -52,7 +52,7 @@ def get_corr_data():
                     src_temp = src[:, j]
                     tgt_temp = tgt2[:, j]
                     src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
-                    if src_temp.shape[0]>10:
+                    if src_temp.shape[0]>8:
                         corr_data[feat][factor][cat].append(pearsonr(src_temp, tgt_temp)[0])
     return corr_data
 
@@ -67,7 +67,7 @@ The purpose of this project is to demonstrate the ***challenges*** when deployin
 * Sparsity
 * Batch effect
 
-In this, we will focus more on **batch effect**.''')
+In this, we will focus more on **batch effect**. *WARNING: Due to the limited computation resource for the online version, the data have been subsetted. Some observations might be different from original notes.*''')
 
 
 st.header("Background")
@@ -175,10 +175,8 @@ with st.container():
             src_temp = src[:, j]
             tgt_temp = tgt[:, j]
             src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
-            if src_temp.shape[0]>10:
+            if src_temp.shape[0]>8:
                 correlations.append(pearsonr(src_temp, tgt_temp)[0])
-            # else:
-            #     correlations.append(0)
         sns.violinplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat} ({len(correlations)}/1115)')
     axs[0].set_ylabel('Pearson Correlation')
