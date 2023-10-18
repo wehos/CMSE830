@@ -26,7 +26,6 @@ TARGET_PATH = f'{PROCESSED_DATA_DIR}/merge_target_1115.h5ad'
 COMMON_GENE_PATH = f'{PROCESSED_DATA_DIR}/common_genes_1115.npy'
 feature_path_dict = {'svd': SVD_FEAT_MERGE_PATH, 'gam':GAM_FEAT_MERGE_PATH, 'eqtl': EQTL_FEAT_MERGE_PATH, 'enh': ENH_FEAT_MERGE_PATH, 'tgt': TARGET_PATH}
 THRESHOLD = 10
-SUBSET = 10000
 with open(f'{PROCESSED_DATA_DIR}/mapping.json') as f:
     mapping = json.load(f)
 HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122', 'ENSG00000158805', 'ENSG00000173917', 'ENSG00000177409', 'ENSG00000196187']
@@ -35,8 +34,7 @@ HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122
 def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
-    idx = np.random.permutation(adata.shape[0])
-    return adata[idx[:SUBSET]]
+    return adata
 
 @st.cache_resource
 def get_corr_data_feat():
