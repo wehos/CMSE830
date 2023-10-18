@@ -17,7 +17,7 @@ import altair as alt
 import json
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-PROCESSED_DATA_DIR = '.'
+PROCESSED_DATA_DIR = './Project/data'
 SVD_FEAT_MERGE_PATH = f'{PROCESSED_DATA_DIR}/merge_svd512.h5ad'
 GAM_FEAT_MERGE_PATH = f'{PROCESSED_DATA_DIR}/merge_gam_w_target_1115.h5ad'
 EQTL_FEAT_MERGE_PATH =  f'{PROCESSED_DATA_DIR}/merge_eqtl_max_1115.h5ad'
