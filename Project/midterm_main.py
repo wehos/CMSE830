@@ -51,7 +51,7 @@ def get_corr_data_feat():
         numerator = np.sum((src - means1) * (tgt - means2), axis=0)
         denominator = (src.shape[0] - 1) * stddevs1 * stddevs2  # "n-1" used for a standard unbiased estimator
         correlations = numerator / denominator
-        corr_data_feat[feat] = correlations
+        corr_data_feat[feat] = correlations[0]
     return corr_data_feat
 
 @st.cache_data
@@ -179,13 +179,13 @@ with st.container():
 with st.container():
     st.subheader("Concept Shift and Feature-target Correlation")
     st.markdown("""In this subsection, we aim to study the potential concept shift in the data via exploring correlation between input features and targets. 
-        We first provide an overview via a box plot of correlations between targets and corresponding features:
+        We first provide an overview via a violin plot of correlations between targets and corresponding features:
         """)
 
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         correlations = corr_data_feat[feat]
-        sns.boxplot(correlations, ax=axs[i])
+        sns.violinplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat}')
     axs[0].set_ylabel('Pearson Correlation')
     st.pyplot(fig)
@@ -197,7 +197,7 @@ with st.container():
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         correlations = corr_data_feat_nz[feat]
-        sns.boxplot(correlations, ax=axs[i])
+        sns.violinplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat} ({len(correlations)}/1115)')
     axs[0].set_ylabel('Pearson Correlation')
     st.pyplot(fig)
@@ -216,7 +216,7 @@ with st.container():
         correlations = []
         for cat in option2_feat:
             correlations.append(corr_data[feat][option2_factor][cat])
-        sns.boxplot(correlations, ax=axs[i])
+        sns.violinplot(correlations, ax=axs[i])
         axs[i].set_xlabel(option2_factor)
         axs[i].set_xticklabels(option2_feat, fontdict={'fontsize': 'small'})
         axs[i].set_title(f'{feat}')
