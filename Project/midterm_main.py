@@ -36,9 +36,9 @@ def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
     idx = np.random.permutation(adata.shape[0])
-    return adata[:SUBSET]
+    return adata[idx[:SUBSET]]
 
-@st.cache_data
+@st.cache
 def get_corr_data_feat():
     corr_data_feat = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
@@ -55,7 +55,7 @@ def get_corr_data_feat():
         corr_data_feat[feat] = correlations[0]
     return corr_data_feat
 
-@st.cache_data
+@st.cache
 def get_corr_data_feat_nz():
     corr_data_feat_nz = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
@@ -70,7 +70,7 @@ def get_corr_data_feat_nz():
         corr_data_feat_nz[feat] = correlations
     return corr_data_feat_nz
     
-@st.cache_data
+@st.cache
 def get_corr_data():
     corr_data = {}
     for feat in ['gam', 'enh', 'eqtl']:
@@ -206,7 +206,7 @@ with st.container():
 with st.container():
     st.markdown("""We indeed observe a much higher correlation when zero values are rmoved. Another potential issue is that the conditional distribution between features and targets may vary among batches.
         To investigate this issue, we break down the correlation w.r.t different factors:""")
-    col1, col2= st.columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         option2_factor = st.selectbox("Select a factor:", ("day", "donor", "cell_type"))
     with col2:
@@ -226,7 +226,7 @@ with st.container():
 
 with st.container():
     st.markdown("""We now clearly notice differences among `day` and `cell_type`. Especially on day 2, `enh` has a very high feature-target correlation. 
-        Therefore, we decide to zoom in and focus on `enh`. Here we provide a list of highly correlated feature-target pairs on day 2, and see how these correlations vary in different days with a interactive scatter plot:""")
+        Therefore, we decide to zoom in and focus on `enh`. Here we provide a list of highly correlated feature-target pairs on day 2, and see how these correlations vary in different days with an interactive scatter plot:""")
 
     optione3_feature = st.selectbox("Select a gene:", HCG, format_func=lambda x: mapping[x])
 
