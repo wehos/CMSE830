@@ -31,14 +31,14 @@ with open(f'{PROCESSED_DATA_DIR}/mapping.json') as f:
     mapping = json.load(f)
 HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122', 'ENSG00000158805', 'ENSG00000173917', 'ENSG00000177409', 'ENSG00000196187']
 
-@st.cache_data
+@st.cache_resource
 def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
     idx = np.random.permutation(adata.shape[0])
     return adata[idx[:SUBSET]]
 
-@st.cache
+@st.cache_resource
 def get_corr_data_feat():
     corr_data_feat = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
@@ -55,7 +55,7 @@ def get_corr_data_feat():
         corr_data_feat[feat] = correlations[0]
     return corr_data_feat
 
-@st.cache
+@st.cache_resource
 def get_corr_data_feat_nz():
     corr_data_feat_nz = {}
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
@@ -70,7 +70,7 @@ def get_corr_data_feat_nz():
         corr_data_feat_nz[feat] = correlations
     return corr_data_feat_nz
     
-@st.cache
+@st.cache_resource
 def get_corr_data():
     corr_data = {}
     for feat in ['gam', 'enh', 'eqtl']:
