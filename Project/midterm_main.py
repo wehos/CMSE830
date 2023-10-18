@@ -33,8 +33,41 @@ HCG = ['ENSG00000069966', 'ENSG00000141452', 'ENSG00000142686', 'ENSG00000154122
 def load_data(feat):
     adata = ad.read_h5ad(feature_path_dict[feat])
     adata.obs = adata.obs.astype('str')
-    return adata[:5000]
+    idx = np.random.permutation(adata.shape[0])
+    return adata[idx[:5000]]
 
+@st.cache_data
+def get_corr_data_feat(feat):
+    corr_data_feat = {}
+    for i, feat in enumerate(['gam', 'enh', 'eqtl']):
+        src = load_data(feat).X
+        means1 = np.mean(src, axis=0)[None, :]
+        means2 = np.mean(tgt, axis=0)[None, :]
+        stddevs1 = np.std(src, axis=0)[None, :]
+        stddevs2 = np.std(tgt, axis=0)[None, :]
+        
+        # Calculate the correlation coefficients in a vectorized manner
+        numerator = np.sum((src - means1) * (tgt - means2), axis=0)
+        denominator = (src.shape[0] - 1) * stddevs1 * stddevs2  # "n-1" used for a standard unbiased estimator
+        correlations = numerator / denominator
+        corr_data_feat[feat] = correlations
+    return corr_data_feat
+
+@st.cache_data
+def get_corr_data_feat_nz(feat):
+    corr_data_feat_nz = {}
+    for i, feat in enumerate(['gam', 'enh', 'eqtl']):
+        correlations = []
+        src = load_data(feat).X
+        for j in range(src.shape[1]):
+            src_temp = src[:, j]
+            tgt_temp = tgt[:, j]
+            src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
+            if src_temp.shape[0]>8:
+                correlations.append(pearsonr(src_temp, tgt_temp)[0])
+        corr_data_feat_nz[feat] = correlations
+    return corr_data_feat_nz
+    
 @st.cache_data
 def get_corr_data():
     corr_data = {}
@@ -58,6 +91,8 @@ def get_corr_data():
 
 tgt = np.asarray(load_data('tgt').X.todense())
 corr_data = get_corr_data()
+corr_data_feat = get_corr_data_feat()
+corr_data_feat_nz = get_corr_data_feat_nz()
 
 st.title("Predicting Gene Expression from Chromatin Openness: Background and Challenges")
 st.subheader("Author: Hongzhi Wen")
@@ -148,16 +183,7 @@ with st.container():
 
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
-        src = load_data(feat).X
-        means1 = np.mean(src, axis=0)[None, :]
-        means2 = np.mean(tgt, axis=0)[None, :]
-        stddevs1 = np.std(src, axis=0)[None, :]
-        stddevs2 = np.std(tgt, axis=0)[None, :]
-        
-        # Calculate the correlation coefficients in a vectorized manner
-        numerator = np.sum((src - means1) * (tgt - means2), axis=0)
-        denominator = (src.shape[0] - 1) * stddevs1 * stddevs2  # "n-1" used for a standard unbiased estimator
-        correlations = numerator / denominator
+        correlations = corr_data_feat[feat]
         sns.violinplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat}')
     axs[0].set_ylabel('Pearson Correlation')
@@ -169,14 +195,7 @@ with st.container():
         """)
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
-        correlations = []
-        src = load_data(feat).X
-        for j in range(src.shape[1]):
-            src_temp = src[:, j]
-            tgt_temp = tgt[:, j]
-            src_temp, tgt_temp = src_temp[(src_temp>0) & (tgt_temp > 0)], tgt_temp[(src_temp>0) & (tgt_temp > 0)]
-            if src_temp.shape[0]>8:
-                correlations.append(pearsonr(src_temp, tgt_temp)[0])
+        correlations = get_corr_data_feat_nz[feat]
         sns.violinplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat} ({len(correlations)}/1115)')
     axs[0].set_ylabel('Pearson Correlation')
