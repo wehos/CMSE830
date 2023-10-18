@@ -178,13 +178,13 @@ with st.container():
 with st.container():
     st.subheader("Concept Shift and Feature-target Correlation")
     st.markdown("""In this subsection, we aim to study the potential concept shift in the data via exploring correlation between input features and targets. 
-        We first provide an overview via a violin plot of correlations between targets and corresponding features:
+        We first provide an overview via a box plot of correlations between targets and corresponding features:
         """)
 
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         correlations = corr_data_feat[feat]
-        sns.violinplot(correlations, ax=axs[i])
+        sns.boxplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat}')
     axs[0].set_ylabel('Pearson Correlation')
     st.pyplot(fig)
@@ -196,7 +196,7 @@ with st.container():
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
         correlations = get_corr_data_feat_nz[feat]
-        sns.violinplot(correlations, ax=axs[i])
+        sns.boxplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat} ({len(correlations)}/1115)')
     axs[0].set_ylabel('Pearson Correlation')
     st.pyplot(fig)
@@ -215,7 +215,7 @@ with st.container():
         correlations = []
         for cat in option2_feat:
             correlations.append(corr_data[feat][option2_factor][cat])
-        sns.violinplot(correlations, ax=axs[i])
+        sns.boxplot(correlations, ax=axs[i])
         axs[i].set_xlabel(option2_factor)
         axs[i].set_xticklabels(option2_feat, fontdict={'fontsize': 'small'})
         axs[i].set_title(f'{feat}')
