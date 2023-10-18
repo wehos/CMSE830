@@ -196,7 +196,7 @@ with st.container():
         """)
     fig, axs = plt.subplots(ncols = 3, sharey=True)
     for i, feat in enumerate(['gam', 'enh', 'eqtl']):
-        correlations = get_corr_data_feat_nz[feat]
+        correlations = corr_data_feat_nz[feat]
         sns.boxplot(correlations, ax=axs[i])
         axs[i].set_title(f'{feat} ({len(correlations)}/1115)')
     axs[0].set_ylabel('Pearson Correlation')
