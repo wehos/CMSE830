@@ -102,7 +102,7 @@ The purpose of this project is to demonstrate the ***challenges*** when deployin
 * Sparsity
 * Batch effect
 
-In this, we will focus more on **batch effect**. *WARNING: Due to the limited computation resource for the online version, the data have been subsetted. Some observations might be different from original notes.*''')
+In this, we will focus more on **batch effect**.''')
 
 
 st.header("Background")
