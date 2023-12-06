@@ -6,4 +6,4 @@ anndata
 scanpy
 altair
 scikit-learn
-st-pages
+leidenalg
