@@ -82,6 +82,7 @@ with st.container():
     * Kernel ridge regression (KRR)
     * Lasso regression
     * Elastic net
+       
        Among these models, Elastic net has the most regularization and least model complexity.
     """)
     tabs = st.tabs([('KRR', 'Lasso', 'Elastic'))
