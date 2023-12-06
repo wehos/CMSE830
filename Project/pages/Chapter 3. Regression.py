@@ -84,21 +84,20 @@ with st.container():
     * Elastic net
        Among these models, Elastic net has the most regularization and least model complexity.
     """)
-    option = st.selectbox(
-        'Which model are you interested in?',
-        ('KRR', 'Lasso', 'Elastic'))
-    
-    y_pred = st.session_state[f'svd_pred_{option}']
+    tabs = st.tabs([('KRR', 'Lasso', 'Elastic'))
 
-    PredictionErrorDisplay.from_predictions(
-        y,
-        y_pred,
-        kind="actual_vs_predicted",
-        subsample=100,
-        random_state=0,
-    )
-    plt.title('MSE %.4f'%(mean_squared_error(y, y_pred)))
-    st.pyplot(plt.show())
+    for i, t in enumerate(tabs):
+       with t:
+          y_pred = st.session_state[f'svd_pred_{('KRR', 'Lasso', 'Elastic')[i]}']
+          PredictionErrorDisplay.from_predictions(
+              y,
+              y_pred,
+              kind="actual_vs_predicted",
+              subsample=100,
+              random_state=0,
+          )
+          plt.title('MSE %.4f'%(mean_squared_error(y, y_pred)))
+          st.pyplot(plt.show())
 
 
 for k, v in st.session_state.to_dict().items():
