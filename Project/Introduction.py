@@ -28,7 +28,7 @@ for k, v in st.session_state.to_dict().items():
 st.title("Predicting Gene Expression from Chromatin Openness: Challenges and Opportunities")
 st.subheader("Author: Hongzhi Wen")
 
-PROCESSED_DATA_DIR = './data'
+PROCESSED_DATA_DIR = './Project/data'
 SVD_FEAT_MERGE_PATH = f'{PROCESSED_DATA_DIR}/merge_svd512.h5ad'
 GAM_FEAT_MERGE_PATH = f'{PROCESSED_DATA_DIR}/merge_gam_w_target_1115.h5ad'
 EQTL_FEAT_MERGE_PATH =  f'{PROCESSED_DATA_DIR}/merge_eqtl_max_1115.h5ad'
