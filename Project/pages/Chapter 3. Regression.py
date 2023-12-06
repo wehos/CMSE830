@@ -85,7 +85,7 @@ with st.container():
        
        Among these models, Elastic net has the most regularization and least model complexity.
     """)
-    tabs = st.tabs([('KRR', 'Lasso', 'Elastic'))
+    tabs = st.tabs(('KRR', 'Lasso', 'Elastic'))
 
     for i, t in enumerate(tabs):
        with t:
