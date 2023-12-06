@@ -23,14 +23,14 @@ for k, v in st.session_state.to_dict().items():
 st.header("Data Navigation")
 st.markdown(f"""
 In this section, we present an overview of the data. The dataset we explore contains **105,933 cells**, produced by *10X multiome* platform.
-The data of each cell consists of two modalities, `ATAC-seq` (chromatin/DNA/epigenomic feature) and `scRNA-seq` (RNA/transcriptomic feature). `ATAC-seq` data has **228942 features**, each refer to a certain region on the chromatin. 
+The data of each cell consists of two modalities, `ATAC-seq` (chromatin/DNA/epigenomic feature) and `scRNA-seq` (RNA/transcriptomic feature). `ATAC-seq` data has **228942 features**, each referring to a certain region on the chromatin. 
 `scRNA-seq` data has **23,418 features**, each refers to a specific type of gene. The data come in the form of **Data Matrix**, each row represents a cell and each column represents a feature.
-Values in the matrix correspond to the abundance of certain signal in a cell (i.e., openness of the chromatin regions and expression level of genes.)
+Values in the matrix correspond to the abundance of certain signals in a cell (i.e., openness of the chromatin regions and expression level of genes.)
 """)
 with st.container():
     st.subheader("Data Visualization")
     st.markdown("""
-    Since the data has extremely **high dimension**, we visualize a subset of the data in form of hetamap plot.  
+    Since the data has extremely **high dimensions**, we visualize a subset of the data in the form of heatmap plot.  
     Specifically, we randomly select 1000 cells and 100 features from selected modality.""")
 
     tab_atac, tab_rna = st.tabs(["scATAC-seq", "scRNA-seq"])
