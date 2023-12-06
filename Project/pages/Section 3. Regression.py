@@ -3,6 +3,7 @@ import numpy as np
 import anndata as ad
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import silhouette_score, PredictionErrorDisplay, mean_squared_error
+from sklearn.model_selection import cross_val_predict
 from scipy.stats import pearsonr, spearmanr
 import matplotlib
 import matplotlib.pyplot as plt
@@ -86,11 +87,8 @@ with st.container():
     option = st.selectbox(
         'Which model are you interested in?',
         ('KRR', 'Lasso', 'Elastic', 'SVR'))
-    X = np.asarray(st.session_state['svd'].X)
-    y = np.asarray(st.session_state['tgt'].X.todense())
     
-    model = st.session_state['model_dict'][option]
-    y_pred = cross_val_predict(model, X, y, cv=5)
+    y_pred = st.session_state[f'svd_pred_{model}']
 
     PredictionErrorDisplay.from_predictions(
         y,
