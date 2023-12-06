@@ -7,3 +7,4 @@ scanpy
 altair
 scikit-learn
 leidenalg
+louvain
