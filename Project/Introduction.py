@@ -93,16 +93,16 @@ st.markdown('''This webapp explores a scenario where we measure the **openness o
     Essentially this is a multivariate regression task, and is consistent with a biological process called `transcription`. 
     The reason to study this regression task is because an accurate regression model can reveal the underlying process of transcription.
 
-We arrange this web app into 3 cahpters, 
-* Section 1. Data navigation
-* Section 2. Clustering analysis and batch effect visualization
-* Section 3. Feature selection and regression models
+We arrange this web app into 3 chapters, 
+* Chapter 1. Data navigation
+* Chapter 2. Clustering analysis and batch effect visualization
+* Chapter 3. Feature selection and regression models
 
-**In the first section**, we quickly introduce the data. Particularly, we will highlight two major challenges for analyzing single-cell data, i.e., **high dimensionality** and **sparsity**.
+**In the first chapter**, we quickly introduce the data. Particularly, we will highlight two major challenges for analyzing single-cell data, i.e., **high dimensionality** and **sparsity**.
 
-**In the second section**, we utilize dimensionality reduction and clustering methods to demonstrate the advanced characteristics of single-cell data, especially **batch effect**. This will bring us deeper insight into the problem.
+**In the second chapter**, we utilize dimensionality reduction and clustering methods to demonstrate the advanced characteristics of single-cell data, especially **batch effect**. This will bring us deeper insight into the problem.
 
-**In the final section**, we illustrate the deployment of regression models for predicting the expression of specific genes. Moreover, we compare the efficacy of various feature selection techniques and regression models. 
+**In the final chapter**, we illustrate the deployment of regression models for predicting the expression of specific genes. Moreover, we compare the efficacy of various feature selection techniques and regression models. 
 The results can inspire us to develop more sophisticated methods for forecasting gene expressions using epigenetic data, thereby unraveling the enigmatic principles governing the codes of life.
 
 ---
