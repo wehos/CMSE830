@@ -22,7 +22,7 @@ for k, v in st.session_state.to_dict().items():
 
 st.header("Data Navigation")
 st.markdown(f"""
-In this section, we present an overview of the data. The dataset we explore contains **105,933 cells**, produced by *10X multiome* platform.
+In this chapter, we present an overview of the data. The dataset we explore contains **105,933 cells**, produced by *10X multiome* platform.
 The data of each cell consists of two modalities, `ATAC-seq` (chromatin/DNA/epigenomic feature) and `scRNA-seq` (RNA/transcriptomic feature). `ATAC-seq` data has **228942 features**, each referring to a certain region on the chromatin. 
 `scRNA-seq` data has **23,418 features**, each refers to a specific type of gene. The data come in the form of **Data Matrix**, each row represents a cell and each column represents a feature.
 Values in the matrix correspond to the abundance of certain signals in a cell (i.e., openness of the chromatin regions and expression level of genes.)
