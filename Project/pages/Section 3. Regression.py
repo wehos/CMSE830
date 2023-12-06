@@ -87,7 +87,7 @@ with st.container():
         'Which model are you interested in?',
         ('KRR', 'Lasso', 'Elastic'))
     
-    y_pred = st.session_state[f'svd_pred_{model}']
+    y_pred = st.session_state[f'svd_pred_{option}']
 
     PredictionErrorDisplay.from_predictions(
         y,
