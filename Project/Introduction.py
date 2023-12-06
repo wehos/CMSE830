@@ -93,14 +93,14 @@ st.markdown('''This webapp explores a scenario where we measure the **openness o
     Essentially this is a multivariate regression task, and is consistent with a biological process called `transcription`. 
     The reason to study this regression task is because an accurate regression model can reveal the underlying process of transcription.
 
-We arrange this webapp into 3 sections, 
+We arrange this web app into 3 cahpters, 
 * Section 1. Data navigation
 * Section 2. Clustering analysis and batch effect visualization
 * Section 3. Feature selection and regression models
 
 **In the first section**, we quickly introduce the data. Particularly, we will highlight two major challenges for analyzing single-cell data, i.e., **high dimensionality** and **sparsity**.
 
-**In the second section**, we utilize dimensionality reduction and clustering methods to demonstrate the advanced charactersitic of single-cell data, especially **batch effect**. This will bring us deeper insight into the problem.
+**In the second section**, we utilize dimensionality reduction and clustering methods to demonstrate the advanced characteristics of single-cell data, especially **batch effect**. This will bring us deeper insight into the problem.
 
 **In the final section**, we illustrate the deployment of regression models for predicting the expression of specific genes. Moreover, we compare the efficacy of various feature selection techniques and regression models. 
 The results can inspire us to develop more sophisticated methods for forecasting gene expressions using epigenetic data, thereby unraveling the enigmatic principles governing the codes of life.
@@ -108,7 +108,7 @@ The results can inspire us to develop more sophisticated methods for forecasting
 ---
 
 ##### Short Bio of the Author
-Hongzhi Wen is a third year Ph.D. student in Computer Science at Michigan State University, advised by Dr. Jiliang Tang.
+Hongzhi Wen is a third-year Ph.D. student in Computer Science at Michigan State University, advised by Dr. Jiliang Tang.
 His research focuses on applying graph neural networks and transformers to large-scale real-world datasets, especially single-cell analysis. He has published papers in top AI conferences, including ICLR, NeurIPS, KDD and CIKM.
 
 ''')
