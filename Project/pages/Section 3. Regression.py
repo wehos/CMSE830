@@ -24,10 +24,10 @@ st.header("Feature Selection and Regression Models")
 st.subheader("Batch Effect in Different Feature Selection Strategies")
 with st.container():
     st.markdown("""Feature selection is a common preprocessing step when dealing with high-dimensional single-cell data. 
-        In this section, we start from evaluating the batch effect in different feature selection strategies. 
-        Specifically, we applied four feature selection strategy on the original raw count of `scATAC-seq` data:
-* **Truncated SVD**, or `svd`. These are top 512 principle somponents of the original data.
-* **Gene activity matrix**, or `gam`, a **biology-informed feature**. These features contain 1115 pesudo expression levels that correspond to specific genes.
+        In this section, we start by evaluating the batch effect in different feature selection strategies. 
+        Specifically, we applied four feature selection strategies on the original raw count of `scATAC-seq` data:
+* **Truncated SVD**, or `svd`. These are the top 512 principle components of the original data.
+* **Gene activity matrix**, or `gam`, a **biology-informed feature**. These features contain 1115 pseudo expression levels that correspond to specific genes.
 * **Expression quantitative trait loci (eQTL)**, or `eqtl`, a **biology-informed feature**. These features aggregate potential genomic factors that correspond to 1115 specific genes.
 * **Enhancers**, or `enh`, a **biology-informed feature**. These features summarize enhancer opennesses that correspond to 1115 specific genes.
         """)
@@ -40,7 +40,7 @@ with st.container():
     st.pyplot(sc.pl.umap(adata_ct, color=['day', 'donor']))
 
     st.markdown("""From the visualization, we observed that:
-*  `svd` encodes clearest biological signals from cell types.
+*  `svd` encodes the clearest biological signals from cell types.
 *  `svd` preserves batch effect for `day` the most.
 *  Cells of different `cell types` are associated with the `day` effects to varying degrees.
         """)
@@ -49,7 +49,7 @@ st.subheader("Comparing Different Feature Selection Strategies")
 st.markdown("""
     Based on the aforementioned observation, we may assume that `svd` would be the best feature selection strategy out of the four strategies. 
     Now we can verify this through a simple linear regression model. 
-    We leverage a 5-fold cross-validation to evaluate the model on different features, and visualize it in a scatter plot.
+    We leverage a 5-fold cross-validation to evaluate the model on different features and visualize it in a scatter plot.
 """)
 
 
@@ -77,16 +77,15 @@ with st.container():
     st.subheader("Comparing Different Regression Models")
     st.markdown("""
         Now we can continue to verify which regression method is more suitable for the prediction with `svd` features.
-        Since the model may suffer from distribution shift, we need a particularly robust regression model. 
+        Since the model may suffer from a distribution shift, we need a particularly robust regression model. 
         In light of this, we select a set of models that has less complexity. They are:
     * Kernel ridge regression (KRR)
     * Lasso regression
     * Elastic net
-    * Support vector regression (SVR)
     """)
     option = st.selectbox(
         'Which model are you interested in?',
-        ('KRR', 'Lasso', 'Elastic', 'SVR'))
+        ('KRR', 'Lasso', 'Elastic'))
     
     y_pred = st.session_state[f'svd_pred_{model}']
 
