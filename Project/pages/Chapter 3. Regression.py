@@ -89,7 +89,8 @@ with st.container():
 
     for i, t in enumerate(tabs):
        with t:
-          y_pred = st.session_state[f'svd_pred_{('KRR', 'Lasso', 'Elastic')[i]}']
+          option = ('KRR', 'Lasso', 'Elastic')[i]
+          y_pred = st.session_state[f'svd_pred_{option}']
           PredictionErrorDisplay.from_predictions(
               y,
               y_pred,
