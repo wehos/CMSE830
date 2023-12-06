@@ -24,7 +24,7 @@ st.header("Feature Selection and Regression Models")
 st.subheader("Batch Effect in Different Feature Selection Strategies")
 with st.container():
     st.markdown("""Feature selection is a common preprocessing step when dealing with high-dimensional single-cell data. 
-        In this section, we start by evaluating the batch effect in different feature selection strategies. 
+        In this chapter, we start by evaluating the batch effect in different feature selection strategies. 
         Specifically, we applied four feature selection strategies on the original raw count of `scATAC-seq` data:
 * **Truncated SVD**, or `svd`. These are the top 512 principle components of the original data.
 * **Gene activity matrix**, or `gam`, a **biology-informed feature**. These features contain 1115 pseudo expression levels that correspond to specific genes.
